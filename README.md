@@ -1,1 +1,1 @@
-# colony-events-list
+# Colony Events List
