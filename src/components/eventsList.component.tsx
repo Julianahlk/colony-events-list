@@ -8,20 +8,22 @@ type EventListProps = {
 const colonyAddress = '0xCFD3aa1EbC6119D80Ed47955a87A9d9C281A97B3';
 
 const EventList = ({ events }: EventListProps) => {
+
   return (
-    <div className="eventList-Container">
+    <div className="eventListContainer">
       {
         events.map((event, index) => {
           let date = new Date(event.logTime).toLocaleDateString('en-gb', { month:"short", day:"numeric"});
+
           return (
-            <div className='listItem-Container' key={index}>
+            <div className='listItemContainer' key={index}>
               <Blockies
                 seed={event.userAddress || colonyAddress}
                 size={8} 
                 scale={5} 
                 className="avatar"
               />
-              <div className='right-side'>
+              <div className='primaryText'>
                 {event.name === ColonyEventType.ColonyInitialised &&
                   <p>Congratulations! It's a beautiful baby colony!</p>
                 }
@@ -34,7 +36,7 @@ const EventList = ({ events }: EventListProps) => {
                 {event.name === ColonyEventType.ColonyRoleSet &&
                   <p><b>{event.role}</b> role assigned to user <b>{event.userAddress}</b> in domain <b>{event.humanReadableDomainId}</b></p>
                 }
-                <div className='secondary'>{date}</div>
+                <div className='secondaryText'>{date}</div>
               </div>
             </div>
           )

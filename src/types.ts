@@ -1,64 +1,27 @@
-// ColonyRoleSet
-// export interface IColonyEvent{
-//   userAddress: string; 
-//   humanReadableDomainId: string;
-//   role: string;
-// }
-
-// export interface IColonyEvent {
-//   userAddress: string; 
-//   amount: string;
-//   token: string;
-//   humanReadableFundingPotId: string;
-//   humanReadableDomainId: string;
-// }
-
-// export interface IDomainAddedEvent extends IColonyEvent {
-//   humanReadableDomainId: string;
-// } 
-
 export interface IColonyEvent {
   name: string;
-  date: string;
   blockHash: string;
   logTime: number;
 }
 
-// export type ColonyRoleSetData = {
-//   userAddress: string; 
-//   humanReadableDomainId: string;
-//   role: string;
-//   name: string;
-//   date: string;
-//   blockHash: string;
-//   logTime: number;
-// }
+export interface IColonyRoleSet {
+  role: string;
+  userAddress: string;
+  humanReadableDomainId: string;
+}
 
-export type ColonyEvent = {
-  userAddress: string; 
+export interface IColonyDomainAdded {
+  humanReadableDomainId: string;
+}
+
+export interface IColonyPayoutClaimed {
+  userAddress: string;
   amount: string;
   token: string;
   humanReadableFundingPotId: string;
-  humanReadableDomainId: string;
-  role: string;
-  name: string;
-  date: string;
-  blockHash: string;
-  logTime: number;
 }
 
-// export type DomainAddedData = {
-//   humanReadableDomainId: string;
-//   name: string;
-//   date: string;
-//   blockHash: string;
-//   logTime: number;
-// }
-
-// export type ColonyEvent = 
-//   | ColonyRoleSetData 
-//   | PayoutClaimedData 
-//   | DomainAddedData;
+export type ColonyEvent = IColonyEvent & IColonyRoleSet & IColonyDomainAdded & IColonyPayoutClaimed;
 
 export const TokenMap = new Map([
   ['0x6B175474E89094C44Da98b954EedeAC495271d0F', 'DAI'],

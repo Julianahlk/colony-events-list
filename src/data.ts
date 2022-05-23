@@ -1,5 +1,5 @@
 import { utils } from 'ethers';
-import { getLogs, ColonyRole } from '@colony/colony-js';
+import { getLogs, ColonyRole, ColonyClient } from '@colony/colony-js';
 import { getBlockTime } from '@colony/colony-js';
 import { ColonyEventType, TokenMap, ColonyEvent } from './types';
 import { BigNumber } from 'ethers/utils';
@@ -10,11 +10,11 @@ export const getColonyEvents = async (colonyClient:any) : Promise<utils.LogDescr
   const colonyRoleSetFilter = colonyClient.filters.ColonyRoleSet();
   const domainAddedFilter = colonyClient.filters.DomainAdded();
 
-  const eventLogs1 = await getLogs(colonyClient, colonyInitFilter);
-  const eventLogs2 = await getLogs(colonyClient, payoutClaimedFilter);
-  const eventLogs3 = await getLogs(colonyClient, colonyRoleSetFilter);
-  const eventLogs4 = await getLogs(colonyClient, domainAddedFilter);
-  const combinedEventLogs = [...eventLogs1, ...eventLogs2, ...eventLogs3, ...eventLogs4];
+  const colonyInitLogs = await getLogs(colonyClient, colonyInitFilter);
+  const payoutClaimedLogs = await getLogs(colonyClient, payoutClaimedFilter);
+  const colonyRoleSetLogs3 = await getLogs(colonyClient, colonyRoleSetFilter);
+  const domainAddedLogs = await getLogs(colonyClient, domainAddedFilter);
+  const combinedEventLogs = [...payoutClaimedLogs, ...colonyRoleSetLogs3, ...domainAddedLogs, ...colonyInitLogs];
 
   const parsedLogs = combinedEventLogs.map(event => {
     let parsedLog = colonyClient.interface.parseLog(event);
@@ -25,7 +25,7 @@ export const getColonyEvents = async (colonyClient:any) : Promise<utils.LogDescr
   return parsedLogs;
 } 
 
-export const getFormattedLogs = async (colonyClient:any, events:utils.LogDescription[]): Promise<ColonyEvent[]> => {
+export const getFormattedLogs = async (colonyClient:ColonyClient, events:utils.LogDescription[]): Promise<ColonyEvent[]> => {
 
  return Promise.all( 
     events.map(async (eventLog:any) => {

@@ -1,10 +1,10 @@
-import colonyClient from './colonyClient';
+import { useState, useEffect } from 'react';
 import { ColonyClient } from '@colony/colony-js';
 import { getColonyEvents, getFormattedLogs } from './data';
-import { useState, useEffect } from 'react';
 import EventList from './components/eventsList.component';
-import './App.css';
 import { ColonyEvent } from './types';
+import colonyClient from './colonyClient';
+import './App.css';
 
 const App = () => {
 
@@ -24,20 +24,19 @@ const App = () => {
       const fetchEvents = async () => {
         const colonyEvents = await getColonyEvents(client);
         const formattedLogs = await getFormattedLogs(client, colonyEvents);
-        console.log(formattedLogs);
         // sort in reverse chronological order
         formattedLogs.sort((a, b) => b.logTime - a.logTime)
         setEvents(formattedLogs);
       };
       fetchEvents();
     }
-  }, [client])
+  }, [client]);
 
   return (
-    <div className="App-container">
-      <EventList events={events}/>
+    <div className="AppContainer">
+      <EventList events={events}></EventList>
     </div>
   );
-}
+};
 
 export default App;
