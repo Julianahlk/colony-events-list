@@ -47,6 +47,6 @@ const EventList = ({ events }: EventListProps) => {
       })}
     </div>
   );
-}
+};
 
 export default EventList;
