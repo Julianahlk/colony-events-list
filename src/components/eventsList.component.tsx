@@ -24,16 +24,20 @@ const EventList = ({ events }: EventListProps) => {
                 className="avatar"
               />
               <div className='primaryText'>
-                {event.name === ColonyEventType.ColonyInitialised &&
+                {
+                  event.name === ColonyEventType.ColonyInitialised &&
                   <p>Congratulations! It's a beautiful baby colony!</p>
                 }
-                {event.name === ColonyEventType.DomainAdded &&
+                {
+                  event.name === ColonyEventType.DomainAdded &&
                   <p>Domain <b>{event.humanReadableDomainId}</b> added</p>
                 }
-                {event.name === ColonyEventType.PayoutClaimed &&
+                {
+                  event.name === ColonyEventType.PayoutClaimed &&
                   <p>User <b>{event.userAddress}</b> claimed <b>{event.amount}{event.token}</b> payout from pot <b>{event.humanReadableFundingPotId}</b></p>
                 }
-                {event.name === ColonyEventType.ColonyRoleSet &&
+                { 
+                  event.name === ColonyEventType.ColonyRoleSet &&
                   <p><b>{event.role}</b> role assigned to user <b>{event.userAddress}</b> in domain <b>{event.humanReadableDomainId}</b></p>
                 }
                 <div className='secondaryText'>{date}</div>
